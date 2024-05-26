@@ -1,0 +1,106 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.gerenciabanco;
+import java.util.Scanner; // Importando biblioteca para entrada de dados
+
+/**
+ *
+ * @author Juliana Braziliano
+ */
+
+class Cliente {
+    private String nome;
+    private String sobrenome;
+    private String cpf;
+    private double saldo;
+    
+    public Cliente(String nome, String sobrenome, String cpf){
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+        this.saldo = 0.0;
+        
+    }
+    //Metodo de classes Cliente]
+    public void consultarsaldo() {
+        System.out.println("Seu saldo atual: R$" + saldo);
+    }// Fim do metodo de consulta
+    
+    public void depositar(double valor){
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println("Deposito R$" +valor + "realizado com suecsso.");
+            
+        }else{
+            System.out.println("Valor de deposito invalido.");
+            
+        }
+        
+    } // Fim metodo depositar
+    public void sacar(double valor){
+        if (valor>0 && valor <= saldo){
+            saldo -= valor;
+            System.out.println("Saque de R$" + valor + "realizado com sucesso.");
+        }else{
+            System.out.println("Saldo insuficiente ou valor do saldo invalido.");
+        }
+        
+    }// Fim do metodo sacar 
+}// Fim classe Cliente 
+
+public class GerenciaBanco {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Informe seu nome:");
+        String nome = scanner.nextLine();
+        System.out.println("Informe seu sobrenome:");
+        String sobrenome = scanner.nextLine();
+        System.out.println("Informe seu CPF:");
+        String cpf = scanner.nextLine();
+        //instanciando um objeto da classe cliente
+        Cliente cliente = new Cliente(nome, sobrenome, cpf);
+        
+        boolean continuar = true;
+        while (continuar){
+            System.out.println("Em que posso te ajudar?");
+            System.out.println("1- Consultar Saldo");
+            System.out.println("2- Fazer depósito");
+            System.out.println("3- Realizar saque");
+            System.out.println("4- Encerrar ");
+            
+            int escolha = scanner.nextInt();
+            switch (escolha){
+                case 1:
+                    cliente.consultarsaldo();
+                    break;
+                case 2:
+                        System.out.println("Informe o valor a ser depositado");
+                        double valorDeposito = scanner.nextDouble();
+                        cliente.depositar(valorDeposito);
+                        break;
+                case 3:
+                    System.out.println("Informe o valor a ser sacado");
+                        double valorSaque = scanner.nextDouble();
+                        cliente.sacar(valorSaque);
+                        break;
+                case 4:
+                    continuar = false;
+                    System.out.println("Encerrado atendimento, até a próxima.");
+                    break;
+                default:
+                    System.out.println("Opção invalida, tente novamente.");
+                    break;
+                    
+                    
+                        
+                    
+            }
+        }
+        scanner.close();
+        
+    }
+}
+
